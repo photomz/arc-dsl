@@ -3230,18 +3230,17 @@ def solve_6cf79266(I):
 
 def solve_a87f7484(I):
     x1 = numcolors(I)
-    x2 = dmirror(I)
-    x3 = portrait(I)
-    x4 = branch(x3, dmirror, identity)
-    x5 = x4(I)
-    x6 = decrement(x1)
-    x7 = hsplit(x5, x6)
-    x8 = rbind(ofcolor, ZERO)
-    x9 = apply(x8, x7)
-    x10 = leastcommon(x9)
-    x11 = matcher(x8, x10)
-    x12 = extract(x7, x11)
-    O = x4(x12)
+    x2 = portrait(I)
+    x3 = branch(x2, dmirror, identity)
+    x4 = x3(I)
+    x5 = decrement(x1)
+    x6 = hsplit(x4, x5)
+    x7 = rbind(ofcolor, ZERO)
+    x8 = apply(x7, x6)
+    x9 = leastcommon(x8)
+    x10 = matcher(x7, x9)
+    x11 = extract(x6, x10)
+    O = x3(x11)
     return O
 
 
@@ -3920,27 +3919,28 @@ def solve_e8dc4411(I):
     return O
 
 
+# Fix https://github.com/michaelhodel/arc-dsl/pull/10/files
 def solve_e40b9e2f(I):
     x1 = objects(I, F, T, T)
     x2 = neighbors(ORIGIN)
     x3 = mapply(neighbors, x2)
     x4 = first(x1)
     x5 = lbind(intersection, x4)
-    x6 = compose(hmirror, vmirror)
-    x7 = x6(x4)
-    x8 = lbind(shift, x7)
-    x9 = apply(x8, x3)
-    x10 = argmax(x9, x5)
-    x11 = paint(I, x10)
-    x12 = objects(x11, F, T, T)
-    x13 = first(x12)
-    x14 = compose(size, x5)
+    x6 = compose(size, x5)
+    x7 = compose(hmirror, vmirror)
+    x8 = x7(x4)
+    x9 = lbind(shift, x8)
+    x10 = apply(x9, x3)
+    x11 = argmax(x10, x6)
+    x12 = paint(I, x11)
+    x13 = objects(x12, F, T, T)
+    x14 = first(x13)
     x15 = compose(vmirror, dmirror)
-    x16 = x15(x13)
+    x16 = x15(x14)
     x17 = lbind(shift, x16)
     x18 = apply(x17, x3)
-    x19 = argmax(x18, x14)
-    O = paint(x11, x19)
+    x19 = argmax(x18, x6)
+    O = paint(x12, x19)
     return O
 
 
@@ -4587,6 +4587,7 @@ def solve_36fdfd69(I):
     x12 = merge(x3)
     x13 = paint(x11, x12)
     O = downscale(x13, TWO)
+    O = downscale(x13, TWO)
     return O
 
 
@@ -4711,27 +4712,27 @@ def solve_72322fa7(I):
     O = paint(x23, x22)
     return O
 
+    # Fix: https://github.com/michaelhodel/arc-dsl/issues/8
 
-def solve_855e0971(I):
-    x1 = rot90(I)
-    x2 = frontiers(I)
-    x3 = sfilter(x2, hline)
-    x4 = size(x3)
-    x6 = positive(x4)
-    x7 = branch(x6, identity, dmirror)
-    x8 = x7(I)
-    x9 = rbind(subgrid, x8)
-    x10 = matcher(color, ZERO)
-    x11 = compose(flip, x10)
-    x12 = partition(x8)
-    x13 = sfilter(x12, x11)
-    x14 = rbind(ofcolor, ZERO)
-    x15 = lbind(mapply, vfrontier)
-    x16 = chain(x15, x14, x9)
-    x17 = fork(shift, x16, ulcorner)
-    x18 = fork(intersection, toindices, x17)
-    x19 = mapply(x18, x13)
-    x20 = fill(x8, ZERO, x19)
+    x1 = frontiers(I)
+    x2 = sfilter(x1, hline)
+    x3 = size(x2)
+    x4 = positive(x3)
+    x5 = branch(x4, identity, dmirror)
+    x6 = x5(I)
+    x7 = rbind(subgrid, x6)
+    x8 = matcher(color, ZERO)
+    x9 = compose(flip, x8)
+    x10 = partition(x6)
+    x11 = sfilter(x10, x9)
+    x12 = rbind(ofcolor, ZERO)
+    x13 = lbind(mapply, vfrontier)
+    x14 = chain(x13, x12, x7)
+    x15 = fork(shift, x14, ulcorner)
+    x16 = fork(intersection, toindices, x15)
+    x17 = mapply(x16, x11)
+    x18 = fill(x6, ZERO, x17)
+    O = x5(x18)
     O = x7(x20)
     return O
 
@@ -5100,6 +5101,9 @@ def solve_469497ad(I):
     return O
 
 
+# Fix; https://github.com/michaelhodel/arc-dsl/issues/8
+
+
 def solve_39e1d7f9(I):
     x1 = fgpartition(I)
     x2 = objects(I, T, F, T)
@@ -5110,7 +5114,6 @@ def solve_39e1d7f9(I):
     x7 = color(x6)
     x8 = colorfilter(x2, x7)
     x9 = power(outbox, TWO)
-    x10 = rbind(toobject, I)
     x11 = mostcolor(I)
     x12 = lbind(remove, x11)
     x13 = chain(size, x12, palette)
@@ -5127,6 +5130,10 @@ def solve_39e1d7f9(I):
     x24 = apply(ulcorner, x8)
     x25 = increment(x17)
     x26 = rbind(subtract, x25)
+    x27 = apply(x26, x24)
+    x28 = lbind(shift, x23)
+    x29 = mapply(x28, x27)
+    O = paint(I, x29)
     x27 = apply(x26, x24)
     x28 = lbind(shift, x23)
     x29 = mapply(x28, x27)
@@ -5709,13 +5716,6 @@ def solve_d22278a0(I):
     O = paint(I, x34)
     return O
 
-
-def solve_4290ef0e(I):
-    x1 = mostcolor(I)
-    x2 = fgpartition(I)
-    x3 = objects(I, T, F, T)
-    x4 = rbind(valmax, width)
-    x5 = lbind(colorfilter, x3)
     x6 = compose(x5, color)
     x7 = compose(double, x4)
     x8 = lbind(prapply, manhattan)
@@ -5742,6 +5742,20 @@ def solve_4290ef0e(I):
     x29 = increment(x26)
     x30 = branch(x28, x26, x29)
     x31 = double(x30)
+    x32 = decrement(x31)
+    x33 = apply(normalize, x25)
+    x34 = interval(ZERO, x30, ONE)
+    x35 = pair(x34, x34)
+    x36 = mpapply(shift, x33, x35)
+    x37 = astuple(x32, x32)
+    x38 = canvas(x1, x37)
+    x39 = paint(x38, x36)
+    x40 = rot90(x39)
+    x41 = paint(x40, x36)
+    x42 = rot90(x41)
+    x43 = paint(x42, x36)
+    x44 = rot90(x43)
+    O = paint(x44, x36)
     x32 = decrement(x31)
     x33 = apply(normalize, x25)
     x34 = interval(ZERO, x30, ONE)
