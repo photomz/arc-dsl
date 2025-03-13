@@ -4587,7 +4587,6 @@ def solve_36fdfd69(I):
     x12 = merge(x3)
     x13 = paint(x11, x12)
     O = downscale(x13, TWO)
-    O = downscale(x13, TWO)
     return O
 
 
@@ -4712,8 +4711,11 @@ def solve_72322fa7(I):
     O = paint(x23, x22)
     return O
 
-    # Fix: https://github.com/michaelhodel/arc-dsl/issues/8
 
+# Fix: https://github.com/michaelhodel/arc-dsl/issues/8
+
+
+def solve_855e0971(I):
     x1 = frontiers(I)
     x2 = sfilter(x1, hline)
     x3 = size(x2)
@@ -4733,7 +4735,6 @@ def solve_72322fa7(I):
     x17 = mapply(x16, x11)
     x18 = fill(x6, ZERO, x17)
     O = x5(x18)
-    O = x7(x20)
     return O
 
 
@@ -5114,6 +5115,7 @@ def solve_39e1d7f9(I):
     x7 = color(x6)
     x8 = colorfilter(x2, x7)
     x9 = power(outbox, TWO)
+    x10 = rbind(toobject, I)
     x11 = mostcolor(I)
     x12 = lbind(remove, x11)
     x13 = chain(size, x12, palette)
@@ -5130,10 +5132,6 @@ def solve_39e1d7f9(I):
     x24 = apply(ulcorner, x8)
     x25 = increment(x17)
     x26 = rbind(subtract, x25)
-    x27 = apply(x26, x24)
-    x28 = lbind(shift, x23)
-    x29 = mapply(x28, x27)
-    O = paint(I, x29)
     x27 = apply(x26, x24)
     x28 = lbind(shift, x23)
     x29 = mapply(x28, x27)
@@ -5716,6 +5714,13 @@ def solve_d22278a0(I):
     O = paint(I, x34)
     return O
 
+
+def solve_4290ef0e(I):
+    x1 = mostcolor(I)
+    x2 = fgpartition(I)
+    x3 = objects(I, T, F, T)
+    x4 = rbind(valmax, width)
+    x5 = lbind(colorfilter, x3)
     x6 = compose(x5, color)
     x7 = compose(double, x4)
     x8 = lbind(prapply, manhattan)
@@ -5742,20 +5747,6 @@ def solve_d22278a0(I):
     x29 = increment(x26)
     x30 = branch(x28, x26, x29)
     x31 = double(x30)
-    x32 = decrement(x31)
-    x33 = apply(normalize, x25)
-    x34 = interval(ZERO, x30, ONE)
-    x35 = pair(x34, x34)
-    x36 = mpapply(shift, x33, x35)
-    x37 = astuple(x32, x32)
-    x38 = canvas(x1, x37)
-    x39 = paint(x38, x36)
-    x40 = rot90(x39)
-    x41 = paint(x40, x36)
-    x42 = rot90(x41)
-    x43 = paint(x42, x36)
-    x44 = rot90(x43)
-    O = paint(x44, x36)
     x32 = decrement(x31)
     x33 = apply(normalize, x25)
     x34 = interval(ZERO, x30, ONE)

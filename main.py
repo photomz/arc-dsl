@@ -8,10 +8,13 @@ import src.dsl.constants as constants
 import src.dsl.dsl as dsl
 import src.dsl.tests as tests
 import src.dsl.solvers as solvers
+from src.utils import ROOT
+
+CWD = ROOT / "src/dsl"
 
 
 def get_data(train=True):
-    path = f'data/{"training" if train else "evaluation"}'
+    path = CWD / f'data/{"training" if train else "evaluation"}'
     data = {}
     for fn in os.listdir(path):
         with open(f"{path}/{fn}") as f:
@@ -65,7 +68,7 @@ def run_dsl_tests(dsl_module, test_module):
 
 def test_solvers_formatting(solvers_module, dsl_module):
     """tests the implementd solvers for formatting"""
-    with open("constants.py", "r") as f:
+    with open(CWD / "constants.py", "r") as f:
         constants = [c.split(" = ")[0] for c in f.readlines() if " = " in c]
     definitions = {
         function: inspect.getsource(getattr(solvers_module, function))

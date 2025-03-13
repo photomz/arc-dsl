@@ -1,9 +1,10 @@
 import sys, types
 
 from src.dsl.dsl import *
+import difflib
 
 
-def find_module_functions(module_name):
+def find_module_funcs(module_name):
     """
     Yields (module, function_name, function) tuples for all functions in a module and its imports.
 
@@ -17,7 +18,10 @@ def find_module_functions(module_name):
         Tuples of (module, function_name, function_object)
     """
     if module_name not in sys.modules:
-        debug(sys.modules)
+        closest = difflib.get_close_matches(module_name, sys.modules.keys())
+        raise KeyError(
+            f"Module `{module_name}` not imported to sys.modules. Did you mean: {closest}"
+        )
     module = sys.modules[module_name]
     # First yield functions from the target module
     for name, obj in list(module.__dict__.items()):
@@ -37,4 +41,4 @@ def find_module_functions(module_name):
 
 
 if __name__ == "__main__":
-    debug(list(find_module_functions("src.dsl.dsl")))  # ok
+    debug(list(find_module_funcs("src.dsl.dsl")))  # ok
