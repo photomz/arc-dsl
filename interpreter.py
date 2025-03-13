@@ -15,11 +15,11 @@ from typing import Optional, Dict, List, Any, Tuple
 import inspect
 
 # Import local modules
-from arc_types import *
-from constants import *
-from dsl import *
-import main
-from tracer import DSLTracer
+from src.dsl.arc_types import *
+from src.dsl.constants import *
+from src.dsl.dsl import *
+import src.dsl.main as main
+from src.dsl.tracer import DSLTracer
 
 # Task data directory
 DATA_DIR = Path("data")

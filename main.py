@@ -3,11 +3,11 @@ import json
 import inspect
 import tqdm
 
-import arc_types
-import constants
-import dsl
-import tests
-import solvers
+import src.dsl.arc_types as arc_types
+import src.dsl.constants as constants
+import src.dsl.dsl as dsl
+import src.dsl.tests as tests
+import src.dsl.solvers as solvers
 
 
 def get_data(train=True):

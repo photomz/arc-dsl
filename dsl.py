@@ -1,4 +1,4 @@
-from arc_types import *
+from src.dsl.arc_types import *
 
 
 def identity(x: Any) -> Any:

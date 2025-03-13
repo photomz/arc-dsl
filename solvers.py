@@ -1,5 +1,5 @@
-from dsl import *
-from constants import *
+from src.dsl.dsl import *
+from src.dsl.constants import *
 
 
 def solve_67a3c6ac(I):
